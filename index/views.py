@@ -276,6 +276,7 @@ def delete_cart_views(request):
     user_id = request.session.get('id')
     good_id = request.GET['good_id']
     #查看购物车中是否有相同的产品，如果有更新数量，没有新加一条
+    #使用try防止购物车信息在其他位置被删除
     try:
         cart_info = CartInfo.objects.get(user_id=user_id,good_id=good_id)
     except Exception:
