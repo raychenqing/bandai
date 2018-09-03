@@ -1,0 +1,36 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol{
+    margin:0;
+}
+
+.select{
+    width: 100px;
+    text-align: center;
+}
+
+.gName img{
+    width: 100px;
+    height: 100px;
+}
+
+.gName span{
+    padding-bottom: 38px;
+}
+
+.gPrice{
+    text-align: center;
+    width: 180px;
+}
+
+.gCount{
+    text-align: center;
+}
+
+.gtotal{
+    text-align: center;
+    width: 180px;
+}
+
+.gOper{
+    text-align: center;
+    width: 150px;
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订单汇总</title>
+        <script src="/static/js/jquery-1.11.3.js"></script>
+        <style>
+            body,p,h1,h2,h3,h4,h5,h6,ul,ol{
+                margin:0;
+            }
+            #title{
+                margin-bottom: 20px;
+            }
+            .oid{
+                text-align:center;
+                width: 50px;
+            }
+            .gname{
+                text-align:center;
+                width: 200px;
+            }
+            .gcount{
+                text-align: center;
+                width: 50px;
+            }
+            .gprice{
+                text-align: center;
+                width: 100px;
+            .comment{
+                text-align: center;
+                width: 300px;
+            }
+            .isDone{
+                text-align: center;
+                width: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="width:1123px;"><a style="float: right;" href="{% url 'index' %}">返回首页</a></div>
+        <div id='title'>订单汇总</div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td class='oid'>订单号</td>
+                    <td class='gname'>产品名称</td>
+                    <td class='gcount'>数量</td>
+                    <td class='gprice'>总价</td>
+                    <td class='uname'>买家姓名</td>
+                    <td class='create_date'>订单时间</td>
+                    <td class='done_date'>付款时间</td>
+                    <td class='isDone'>付款完成</td>
+                    <td class='comment'>评论</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dic in all_list %}
+                <tr>
+                    <td class='oid'>{{dic.oid}}</td>
+                    <td class='gname'>{{dic.gname}}</td>
+                    <td class='gcount'>{{dic.gcount}}</td>
+                    <td class='gprice'>{{dic.gprice}}</td>
+                    <td class='uname'>{{dic.uname}}</td>
+                    <td class='create_date'>{{dic.create_date}}</td>
+                    <td class='done_date'>{{dic.done_date}}</td>
+                    <td class='isDone'>{{dic.isDone}}</td>
+                    <td class='comment'>{{dic.comment}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

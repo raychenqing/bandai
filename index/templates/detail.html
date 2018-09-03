@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% block title %}
+    {{dic.title}}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        $(function(){
+            //为A绑定鼠标移入事件
+            $("#A").mouseover(function(){
+                $("#B").css("display","block");
+            });
+            //为A绑定鼠标移出事件
+            $("#A").mouseout(function(){
+                $("#B").css("display","none");
+            });
+            //绑定鼠标移动事件
+            $("#A").mousemove(function(event){
+                var posx = event.offsetX
+                var posy = event.offsetY                
+                $("#B").css("background-position",(150-2*posx))
+                $("#B").css("background-position-y",(150-2*posy))
+            });
+        });
+    </script>
+    <script>
+        var gid={{dic.gid}};
+        var aoi={{dic.aoi}}
+    </script>
+    <script src="/static/js/detail.js"></script>
+{% endblock %}
+
+
+{% block main %}
+    <div style="position: relative;">
+        <div style="float: left; width: 375px; height: 450px; position: relative;">
+            <div id="gpicture">
+                <div id="A">
+                    <img src="/{{dic.picture}}">
+                </div>
+                <div id="B" style="background-image:url('/{{dic.picture}}');">
+                </div>
+            </div>
+        </div>
+        <div id="describe">
+            <div id="gtitle">
+                <h1>{{dic.title}}</h1>
+            </div>
+            <div id="gprice">
+                <h2>售价：&yen;{{dic.price}}</h2>
+            </div>
+            <div id="aoi">
+                <h2>库存:{{dic.aoi}}件</h2>
+            </div>
+            <div id="ncontrol">
+            </div>
+            <div id="bcontrol">
+                <div id="buynow"></div>
+                <div id="add_cart"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

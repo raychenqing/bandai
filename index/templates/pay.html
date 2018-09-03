@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %}
+    付款
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        function pay_true() {
+            alert("购买成功")            
+            window.location.assign("/pay_ok?order_ids="+'{{order_ids}}')
+        }
+        function pay_false() {
+            window.location.assign("{% url 'index' %}")
+        }
+    </script>
+{% endblock %}
+
+
+{% block main %}
+    <div><h1>付款方式选择预留</h1></div>
+    <div><h1>银行选择预留</h1></div>
+    <div><h1>密码预留</h1></div>
+    <div><p>总价:{{totalprice}}</p></div>
+    <div><button onclick="pay_true()">支付</button><button onclick="pay_false()">暂不付款</button></div>
+{% endblock %}

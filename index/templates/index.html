@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="uft-8">
+	<title>
+		{% block title %}
+		万代官方旗舰店
+		{% endblock %}
+	</title>
+	<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+	{% block style %}	
+		<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	{% endblock %}
+	<script src="/static/js/jquery-1.11.3.js"></script>
+  	<script src="/static/js/jquery.cookie.js"></script>
+
+	{% block js %}
+		<script src="/static/js/index.js"></script>
+	{% endblock %}
+</head>
+<body>
+	<div id="container">
+		<div id="nav">
+			<ul class="rightNav">
+				<li id="login-info">
+				</li>
+				<li id="nav_cart">
+				</li>
+				<li>
+					<i></i>
+					<a id="user_orders">我的订单</a>
+				</li>
+				<li>
+					<i></i>
+					<span class="fa fa-mobile-phone"></span>
+					<a href="#">手机万代</a>
+				</li>
+			</ul>	
+			<ul class="leftNav">
+				<li class="address">
+					<span class="currentAddress">商家支持</span>
+					<b></b>
+					<ol class="select">
+						<li><a href="{% url 'store_center' %}">商家中心</a></li>
+						<li>商家工具</li>
+						<li>商家入驻</li>
+					</ol>
+				</li>
+				<li>
+					<a href="{% url 'index' %}">首页</a>
+				</li>
+				<li>
+					欢迎来到万代
+				</li>
+			</ul>
+		</div>
+		{% block main %}
+		<div id="banner">
+			<div class="wrapper">
+				<img src="/static/images/banner1.jpg" alt="">
+				<img src="/static/images/banner2.jpg" alt="">
+				<img src="/static/images/banner3.jpg" alt="">
+			</div>
+			<ul class="imgInfo">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+			</ul>
+		</div>
+		<div id="commend">
+			<img src="/static/images/ad_1.jpg">
+			<img src="/static/images/ad_2.jpg">
+			<img src="/static/images/ad_3.jpg">
+			<img src="/static/images/ad_4.jpg">
+		</div>
+		<!-- 5、网页主体内容(各种产品) -->
+		<div id="main">
+			<div id="content1"></div>
+			<div id="content2"></div>
+			<div id="content3"></div>
+		</div>
+		{% endblock %}
+		<!-- 5、网页主体内容结束-->
+		<!-- 6、网页底部 -->
+		<div id="button">
+			<img src="/static/images/button.jpg">
+		</div>
+	</div>
+</body>
+</html>

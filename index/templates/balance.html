@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>订单确认</title>
+        <script src="/static/js/jquery-1.11.3.js"></script>
+        <style>
+            body,p,h1,h2,h3,h4,h5,h6,ul,ol{
+                margin:0;
+            }
+            #title{
+                margin-bottom: 20px;
+            }
+            #title p{
+                font-size: 25;
+                font-weight:bolder;
+            }
+            #address{
+                color: red;
+                font-weight:bold;
+                font-size: 16;
+            }
+            
+            #tname{
+                text-align:left;
+                width: 300px;
+            }
+            .goodpic{float: left;}
+            .goodpic img{
+                width: 100px;
+                height: 100px;
+            }
+            .gname{
+                float: left;
+                text-align:left;
+                padding-top: 15px;
+                width: 200px;
+            }
+            #tcount{text-align: center;
+                width: 100px;}
+            .gcount{
+                text-align: center;
+                width: 100px;
+            }
+            #tprice{text-align: center;
+                width: 200px;}
+            .gprice{
+                text-align: center;
+                width: 200px;
+            }
+            #buttom{
+                width: 622px;
+            }
+            #buttom button{
+                float: right;
+            }
+            #buttom span{
+                float: right;
+                margin-right: 20px;
+            }
+        </style>
+        <script>
+            $(function(){
+                getprice();
+            })
+            function getprice(){
+            //获取所有产品的总价，更新合计处的价格
+            var arr = document.getElementsByClassName("gprice");
+            var n = 0.00;
+            for ( var i = 0; i <arr.length; i++){
+                n += arr[i].innerHTML*1.00;
+            }
+            $("#totalprice").html('合计'+n.toFixed(2))
+            }
+            function entry(){                
+                $.get('/confirm_balance/','msg='+'{{msg}}', function(data){
+                    if (data.status == 1) {
+                        alert(data.statusText);
+                        window.location.assign("/pay?order_ids="+data.id);
+                    }else if (data.status == 0) {
+                        alert(data.statusText)
+                    }else{
+                        //遍历后台返回信息，将下单成功的信息拼接程order_ids
+                        var order_ids = '';
+                        var flag = 0;
+                        for (var i = 0; i < data.length; i++){
+                            if(data[i].status == 0){
+                                flag ++;
+                            }else{
+                                order_ids += data[i].id;
+                                order_ids += ' ';
+                            }
+                        }
+                        if (flag == data.length){
+                            //全部下单失败，提示，不跳转
+                            alert("商品由于库存等原因生成订单失败");
+                        }else if (flag < data.length && flag > 0){
+                            //部分下单失败，直接跳转付款模拟，下单失败的订单依然存在购物车
+                            alert("部分商品由于库存等原因生成订单失败");
+                            window.location.assign("/pay?order_ids="+order_ids);
+                        }else{
+                            //没有下单失败，直接跳转付款模拟
+                            window.location.assign("/pay?order_ids="+order_ids);
+                        }
+                    }
+                },'json');
+            }
+        </script>
+    </head>
+    <body>
+        <div style="width:1123px;"><a style="float: right;" href="{% url 'index' %}">返回首页</a></div>
+        <div id='title'><p>订单确认</p></div>
+        <p>收货地址: <span id='address'>{{address}}</span></p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td id='tname'>产品名称</td>
+                    <td id='tcount'>数量</td>
+                    <td id='tprice'>金额</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dic in all_list %}
+                <tr>
+                    <td><div class='goodpic'><img src="/{{dic.picture}}"></div><div class="gname">{{dic.name}}</div></td>
+                    <td class='gcount'>{{dic.gcount}}</td>
+                    <td class='gprice'>{{dic.gprice}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="buttom"><button onclick="entry()">确认下单</button><span id='totalprice'></span></div> 
+    </body>
+</html>

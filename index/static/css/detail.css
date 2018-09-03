@@ -1,0 +1,194 @@
+/*页面基础样式*/ 
+body{
+    font-size:12px;
+    font-family: "verdana","arial";
+    color: #666;
+}
+/*边距*/
+body,h1,h2,h3,h4,h5,h6,p,ul,ol{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+/*超链接*/
+a{
+    text-decoration: none;
+    color: #666;
+}
+
+a:hover{
+    color: red;
+    text-decoration:underline;
+}
+
+img{
+    vertical-align: bottom;
+}
+/*外围结构*/
+#container{
+    width: 990px;
+    margin: 0 auto;
+}
+/*1.导航部分*/
+#nav{
+    height: 30px;
+    line-height: 30px;
+    background-color: #eee; 
+}
+#nav .rightNav{
+    float: right;
+}
+#nav .rightNav>li{
+    float: left;
+    padding:0 5px;
+}
+#nav .rightNav i{
+    border-left: 1px solid #999;
+    margin-right: 10px;
+}
+#nav .rightNav>li>a:hover{
+    color: #f6ab00;
+}
+/*左侧导航*/
+#nav .leftNav>li{
+    float: left;
+    padding-left: 10px; 
+}
+#nav .leftNav b{
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border: 6px solid transparent;
+    border-top: 6px solid black;
+    /*定位布局*/
+    position: relative;
+    top: 4px;
+}
+/* 下拉菜单*/
+#nav .address{position: relative;}
+#nav .leftNav .select{
+    /*使用定位脱离文档流*/
+    position: absolute;
+    display: none;
+    background-color: #f88; 
+    /*z-index与position结合使用*/
+    z-index: 5;
+}
+
+/*主体内容*/
+#gpicture{
+    position: relative;
+    height: 450px;
+    width: 375px;
+}
+#describe{
+    margin-left: 375px;
+    height: 450px;
+    width: 515px;
+}
+#A{
+    position: relative;
+    left: 75px;
+}
+#A img{
+    height:300px;
+    width:300px;
+}
+#A,#B{
+    height:300px;
+    width:300px;
+}
+#B{
+    position:absolute;
+    background-size:200% 200%; 
+    top:0px;
+    left:375px;
+    background-repeat:no-repeat;
+    background-position:0px 0px;
+    display:none;
+}
+
+#gtitle{
+    margin-top: 90px;
+    margin-left: 60px; 
+    width: 400px;
+}
+#gtitle h1{
+    width: 400px;
+    font-size: 16;
+    font-weight: bold;
+    color: red;
+}
+#gprice{
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 300px;
+}
+#gprice h2{
+    color: red;
+}
+
+#aoi{
+    margin-top: 20px;
+    margin-left: 60px;
+    width: 300px;
+}
+#gprice h4{
+    color: #fff;
+}
+
+#ncontrol{
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 200px;
+
+}
+#ncontrol input{
+    width: 50px;
+}
+
+#bcontrol{
+    margin-top: 30px;
+    width: 400px;
+}
+
+#add_cart{
+    width: 178px;
+    float: left;
+    margin-right: 20px;
+}
+#buynow{
+    width: 178px;
+    float: left;
+    margin-right: 20px;
+}
+
+.buy_a_on{
+    width: 178px;
+    background-color: #ffeded;
+    border: 1px solid #FF0036;
+    color: #FF0036;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 45px;
+}
+
+.buy_a_off{
+    cursor: default;
+    width: 178px;
+    background-color: #f9f9f9;
+    color: #818181;
+    border: 1px solid #818181;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 45px;    
+}
+
+#bcontrol a:hover{
+    color:#818181;
+    text-decoration:none;
+}

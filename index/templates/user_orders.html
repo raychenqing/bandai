@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>我的订单</title>
+        <style type="text/css">
+            body,p,h1,h2,h3,h4,h5,h6,ul,ol{
+                margin:0;
+            }
+
+            .goodpic img{
+                width: 100px;
+                height: 100px;
+            }
+
+            .gname{
+                padding-bottom: 38px;
+            }
+
+            .gprice{
+                text-align: center;
+                width: 180px;
+            }
+
+            .gcount{
+                text-align: center;
+            }
+
+            .totalprice{
+                text-align: center;
+                width: 180px;
+            }
+            
+            .isDone{
+                text-align: center;
+                width: 180px;
+            }
+            .option{
+                text-align: center;
+                width: 200px;
+            }
+        </style>
+        <script src="/static/js/jquery-1.11.3.js"></script>
+        <script type="text/javascript">
+            function pay(oid) {
+                window.location.assign("/pay?order_ids="+oid);
+            }
+            function confirm_reciept(oid) {
+                con=confirm("您确定已收货并确认无误?");
+                if(con==true){
+                    window.location.assign("/confirm_reciept?order_id="+oid);
+                };
+            }
+
+            function comment(oid) {
+                var $btn = $('#comment'+oid)
+                var $td = $btn.parent()
+                $td.empty()
+                var html = ''
+                html += "<form action='/comment/"+oid+"/' method='get'>"
+                html += "<input id='good' type='radio' name='comment' value='好评' checked='checked'>"
+                html += "<label for='good'>好评</label>"
+                html += "<input id='normal' type='radio' name='comment' value='中评'>"
+                html += "<label for='normal'>中评</label>"
+                html += "<input id='bad' type='radio' name='comment' value='差评'>"
+                html += "<label for='bad'>差评</label>"
+                html += "<input type='submit' value='提交'></form>"
+                html += "<button id='comment_back'>返回</button>"
+                $form = $(html)
+                $td.append($form)
+                $('#comment_back')[0].onclick = function(){
+                    var $td = $(this).parent();
+                    $td.empty();
+                    var html = "<button id='comment"+oid+"' onclick='comment("+oid+")'>评论</button>";
+                    $btn = $(html);
+                    $td.append($btn);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div style="width:1500px;"><a style="margin-left: 1100px;" href="{% url 'index' %}">返回首页</a></div>
+        <div style='margin-left: 100px;margin-top: 30px;margin-bottom: 100px;'>
+            <table border="1">
+                <thead id="head">
+                    <th>商品</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>实付款</th>
+                    <th>交易状态</th>
+                    <th>交易操作</th>
+                </thead>
+                <tbody id="body">
+                    {% for dic in all_list %}
+                    <tr>
+                        <td><span>{{dic.time}} </span><span>订单号:</span><span>{{dic.id}}</span></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><div class='goodpic'><img src="/{{dic.picture}}"></div><div class="gname">{{dic.title}}</div></td>
+                        <td class='gprice'>{{dic.price}}</td>
+                        <td class='gcount'>{{dic.count}}</td>                        
+                        {% if dic.isDone == True %}
+                            <td class='totalprice'>{{dic.totalprice}}</td>
+                        {% else %}
+                            <td class='totalprice'>买家未付款</td>
+                        {% endif %}                        
+                        {% if dic.confirm_reciept == True %}
+                            <td class='isDone'>交易完成</td>
+                        {% elif dic.confirm_reciept == False and dic.isDone == True%}
+                            <td class='isDone'>买家已付款,发货中</td>                                            
+                        {% else %}
+                            <td class='isDone'>买家未付款</td>
+                        {% endif %}
+                        {% if dic.isDone == False %}
+                            <td class='option'><button onclick="pay({{dic.id}})">付款</button></td>
+                        {% elif dic.isDone == True　and dic.confirm_reciept == False %}
+                            <td class='option'><button onclick="confirm_reciept({{dic.id}})">确认收货</button></td>
+                        {% elif dic.isDone == True　and dic.confirm_reciept == True and dic.comment == None %}
+                            <td class='option'><button id='comment{{dic.id}}' onclick="comment({{dic.id}})">评论</button></td>
+                        {% else %}
+                            <td class='option'>已评价</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}                
+                </tbody>
+            </table>
+        </div> 
+    </body>
+</html>
